@@ -1,7 +1,7 @@
 import { useAuth } from '@/hooks/useAuth';
 import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Brain, Code2, LayoutDashboard, BookOpen, LogOut, Menu, X } from 'lucide-react';
+import { Brain, Code2, LayoutDashboard, BookOpen, LogOut, Menu, X, Trophy } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
