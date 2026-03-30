@@ -9,6 +9,7 @@ import Auth from "@/pages/Auth";
 import Dashboard from "@/pages/Dashboard";
 import Problems from "@/pages/Problems";
 import Practice from "@/pages/Practice";
+import Leaderboard from "@/pages/Leaderboard";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
