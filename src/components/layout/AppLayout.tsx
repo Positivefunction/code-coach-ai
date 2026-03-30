@@ -9,6 +9,7 @@ const navItems = [
   { path: '/', icon: LayoutDashboard, label: 'Dashboard' },
   { path: '/problems', icon: BookOpen, label: 'Problems' },
   { path: '/practice', icon: Code2, label: 'Practice' },
+  { path: '/leaderboard', icon: Trophy, label: 'Leaderboard' },
 ];
 
 export default function AppLayout() {
