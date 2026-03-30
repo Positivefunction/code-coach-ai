@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Loader2, CheckCircle2, XCircle, Brain, Lightbulb, ArrowLeft } from 'lucide-react';
-import type { Problem, EvaluationResult } from '@/lib/types';
+import type { Problem, EvaluationResult, TestResult } from '@/lib/types';
 
 export default function Practice() {
   const [params] = useSearchParams();
