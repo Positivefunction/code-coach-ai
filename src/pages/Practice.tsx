@@ -196,6 +196,30 @@ export default function Practice() {
                           </div>
                         )}
 
+                        {/* Per-test-case results */}
+                        {result.test_results && result.test_results.length > 0 && (
+                          <div className="space-y-2">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Test Case Details</p>
+                            {result.test_results.map((tr: TestResult) => (
+                              <div key={tr.test_number} className={`p-3 rounded-lg border ${tr.passed ? 'bg-success/5 border-success/20' : 'bg-destructive/5 border-destructive/20'}`}>
+                                <div className="flex items-center gap-2 mb-1">
+                                  {tr.passed
+                                    ? <CheckCircle2 className="w-4 h-4 text-success" />
+                                    : <XCircle className="w-4 h-4 text-destructive" />}
+                                  <span className="text-sm font-medium text-foreground">Test {tr.test_number}</span>
+                                  <Badge variant={tr.passed ? 'default' : 'destructive'} className="text-[10px] ml-auto">
+                                    {tr.passed ? 'PASSED' : 'FAILED'}
+                                  </Badge>
+                                </div>
+                                <div className="text-xs font-mono space-y-0.5 ml-6">
+                                  <p><span className="text-muted-foreground">Expected:</span> <span className="text-foreground">{tr.expected_output}</span></p>
+                                  <p><span className="text-muted-foreground">Got:</span> <span className={tr.passed ? 'text-success' : 'text-destructive'}>{tr.actual_output}</span></p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        )
+
                         {result.static_analysis && (
                           <div className="space-y-2">
                             <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Static Analysis</p>
