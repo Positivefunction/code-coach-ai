@@ -218,7 +218,7 @@ export default function Practice() {
                               </div>
                             ))}
                           </div>
-                        )
+                        )}
 
                         {result.static_analysis && (
                           <div className="space-y-2">
