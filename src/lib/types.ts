@@ -56,6 +56,13 @@ export interface StaticAnalysis {
   function_count?: number;
 }
 
+export interface TestResult {
+  test_number: number;
+  passed: boolean;
+  actual_output: string;
+  expected_output: string;
+}
+
 export interface EvaluationResult {
   passed_tests: number;
   total_tests: number;
@@ -68,6 +75,7 @@ export interface EvaluationResult {
   static_analysis: StaticAnalysis;
   feedback: SubmissionFeedback;
   points_earned: number;
+  test_results: TestResult[];
 }
 
 export interface SkillProfile {

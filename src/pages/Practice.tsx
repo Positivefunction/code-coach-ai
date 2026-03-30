@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { toast } from 'sonner';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, Loader2, CheckCircle2, XCircle, Brain, Lightbulb, ArrowLeft } from 'lucide-react';
-import type { Problem, EvaluationResult } from '@/lib/types';
+import type { Problem, EvaluationResult, TestResult } from '@/lib/types';
 
 export default function Practice() {
   const [params] = useSearchParams();
@@ -193,6 +193,30 @@ export default function Practice() {
                           <div className="p-3 rounded-lg bg-warning/10 border border-warning/20">
                             <p className="text-xs text-warning font-medium">Detected Issue</p>
                             <p className="text-sm text-foreground">{result.mistake_type}</p>
+                          </div>
+                        )}
+
+                        {/* Per-test-case results */}
+                        {result.test_results && result.test_results.length > 0 && (
+                          <div className="space-y-2">
+                            <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">Test Case Details</p>
+                            {result.test_results.map((tr: TestResult) => (
+                              <div key={tr.test_number} className={`p-3 rounded-lg border ${tr.passed ? 'bg-success/5 border-success/20' : 'bg-destructive/5 border-destructive/20'}`}>
+                                <div className="flex items-center gap-2 mb-1">
+                                  {tr.passed
+                                    ? <CheckCircle2 className="w-4 h-4 text-success" />
+                                    : <XCircle className="w-4 h-4 text-destructive" />}
+                                  <span className="text-sm font-medium text-foreground">Test {tr.test_number}</span>
+                                  <Badge variant={tr.passed ? 'default' : 'destructive'} className="text-[10px] ml-auto">
+                                    {tr.passed ? 'PASSED' : 'FAILED'}
+                                  </Badge>
+                                </div>
+                                <div className="text-xs font-mono space-y-0.5 ml-6">
+                                  <p><span className="text-muted-foreground">Expected:</span> <span className="text-foreground">{tr.expected_output}</span></p>
+                                  <p><span className="text-muted-foreground">Got:</span> <span className={tr.passed ? 'text-success' : 'text-destructive'}>{tr.actual_output}</span></p>
+                                </div>
+                              </div>
+                            ))}
                           </div>
                         )}
 
