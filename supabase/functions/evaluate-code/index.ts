@@ -151,16 +151,26 @@ Evaluate this code and provide your assessment.`;
       };
     }
 
+    const qualityScore = Math.min(5, Math.max(1, Math.round(evaluation.quality_score)));
+    
+    // Calculate gamification points
+    const testPoints = passedTests * 10;
+    const qualityPoints = qualityScore * 5;
+    const efficiencyBonus = evaluation.efficiency === "Optimal" ? 20 : evaluation.efficiency === "Suboptimal" ? 10 : 0;
+    const perfectBonus = passedTests === totalTests ? 25 : 0;
+    const earnedPoints = testPoints + qualityPoints + efficiencyBonus + perfectBonus;
+
     const result = {
       passed_tests: passedTests,
       total_tests: totalTests,
       runtime_ms: runtime,
       memory_usage: memory,
-      quality_score: Math.min(5, Math.max(1, Math.round(evaluation.quality_score))),
+      quality_score: qualityScore,
       efficiency: evaluation.efficiency || "Suboptimal",
       mistake_type: evaluation.mistake_type || null,
       optimization_possible: evaluation.optimization_possible ?? true,
       static_analysis: staticAnalysis,
+      points_earned: earnedPoints,
       feedback: {
         explanation: evaluation.explanation,
         improved_pseudocode: evaluation.improved_pseudocode || null,

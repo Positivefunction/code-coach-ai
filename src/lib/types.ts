@@ -67,6 +67,7 @@ export interface EvaluationResult {
   optimization_possible: boolean;
   static_analysis: StaticAnalysis;
   feedback: SubmissionFeedback;
+  points_earned: number;
 }
 
 export interface SkillProfile {

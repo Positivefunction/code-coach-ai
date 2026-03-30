@@ -75,7 +75,23 @@ export default function Practice() {
         static_analysis: evalResult.static_analysis as unknown as Record<string, unknown>,
       }] as any);
 
-      toast.success('Code evaluated!');
+      // Update points in profile
+      const pointsEarned = (data as any)?.points_earned || 0;
+      if (pointsEarned > 0) {
+        const { data: profileData } = await supabase
+          .from('profiles')
+          .select('skill_profile')
+          .eq('user_id', user.id)
+          .single();
+        const currentProfile = (profileData?.skill_profile as Record<string, unknown>) || {};
+        const currentPoints = (currentProfile.points as number) || 0;
+        await supabase.from('profiles').update({
+          skill_profile: { ...currentProfile, points: currentPoints + pointsEarned },
+        }).eq('user_id', user.id);
+        toast.success(`Code evaluated! +${pointsEarned} points earned 🎉`);
+      } else {
+        toast.success('Code evaluated!');
+      }
     } catch (err: unknown) {
       toast.error(err instanceof Error ? err.message : 'Evaluation failed');
     } finally {
